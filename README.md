@@ -12,17 +12,17 @@ generation.
 ```text
 scPriorDiff/
   __init__.py         Package exports
-  attention_unet.py  Attention-based 1D U-Net used as the diffusion denoiser
-  completion.py      Prior-guided cross-attention for target-node completion
-  config.py          Task definitions and experiment configuration loading
-  data.py            Processed-data loading, graph loading, and data loaders
-  diffusion.py       Diffusion training objective and reverse sampling process
-  graph.py           Heterogeneous graph encoding and message-passing layers
-  model.py           Stage-one model assembly and cross-modal latent encoding
-  modules.py         RNA and chromosome-aware ATAC encoders and decoders
-  training.py        Training loops, latent extraction, and checkpoint helpers
+  attention_unet.py  Diffusion denoiser
+  completion.py      Cross-modal completion
+  config.py          Configuration loading
+  data.py            Data loading
+  diffusion.py       Diffusion process
+  graph.py           Heterogeneous graph encoder
+  model.py           scPriorDiff model
+  modules.py         Modality encoders and decoders
+  training.py        Training utilities
 requirements.txt     Python dependencies
-README.md            Project overview, package layout, and installation
+README.md            Project documentation
 ```
 
 ## Installation
