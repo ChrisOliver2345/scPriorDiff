@@ -1,9 +1,9 @@
 # scPriorDiff
 
-scPriorDiff is a conditional latent diffusion model guided by biological network
-priors for cross-modal translation between single-cell transcriptomic and chromatin
-accessibility profiles. It integrates diverse biological networks into a multimodal
-heterogeneous graph and supports two translation tasks:
+This is the official repository for scPriorDiff. scPriorDiff is a conditional latent
+diffusion model guided by biological network priors for cross-modal translation between
+single-cell transcriptomic and chromatin accessibility profiles. It supports two
+translation tasks:
 
 - `RNA-ATAC`: predict chromatin accessibility from gene expression.
 - `ATAC-RNA`: predict gene expression from chromatin accessibility.
@@ -17,17 +17,16 @@ scPriorDiff/
 |-- data/
 |   |-- raw/                Pre-partitioned RNA/ATAC data and biological priors
 |   `-- processed/          Model-ready train/test data generated locally
-|-- outputs/                Checkpoints, predictions, and evaluation results
+|-- outputs/                Checkpoints, training histories, and predictions
 |-- scPriorDiff/            Python source code
-|-- scripts/                Data preparation, training, translation, and evaluation
+|-- scripts/                Data preparation, training, translation, and utilities
 |-- requirements.txt        Complete list of direct Python dependencies
 `-- README.md               Installation and usage documentation
 ```
 
 ## Installation
 
-scPriorDiff is run directly from the checked-out repository. A separate virtual
-environment is strongly recommended to avoid conflicts with system-wide packages.
+A separate virtual environment is recommended for installing and running scPriorDiff.
 
 ### Reference environment
 
@@ -109,8 +108,8 @@ in `requirements.txt`.
 | `scanpy` | 1.11.1 | RNA preprocessing and feature selection |
 | `h5py` | 3.9.0 | HDF5-backed `.h5ad` support |
 | `numpy` | 1.24.3 | Dense numerical arrays and preprocessing |
-| `pandas` | 2.2.3 | Cell, feature, and metric tables |
-| `scikit-learn` | 1.5.2 | PCA, clustering, and evaluation metrics |
+| `pandas` | 2.2.3 | Cell, feature, and output tables |
+| `scikit-learn` | 1.5.2 | PCA and clustering utilities |
 | `scipy` | 1.15.3 | Sparse matrix storage and operations |
 | `einops` | 0.8.1 | Tensor rearrangement in the diffusion network |
 | `PyYAML` | 6.0.1 | Experiment configuration files |
@@ -151,7 +150,7 @@ and graph-prior files are provided with the repository.
 | Input | Required content |
 | --- | --- |
 | `Paired_RNA_train.h5ad` | Training cells by genes RNA matrix. Cell identifiers are stored in `obs_names`; gene identifiers are stored in `var_names`. |
-| `Paired_RNA_test.h5ad` | Test cells by genes RNA matrix with the same gene features as the training RNA file. Its `obs` must contain `cell_type` for evaluation. |
+| `Paired_RNA_test.h5ad` | Test cells by genes RNA matrix with the same gene features as the training RNA file. Its `obs` must contain `cell_type` as test-cell metadata. |
 | `Paired_ATAC_train.h5ad` | Training cells by peaks ATAC matrix paired with the RNA training file. Its `var` must contain a `chrom` column. |
 | `Paired_ATAC_test.h5ad` | Test cells by peaks ATAC matrix paired with the RNA test file and containing the same peak features as the training ATAC file. Its `var` must contain a `chrom` column. |
 | `gact.csv` | Proximal gene-peak pairs with columns `peak` and `gene.name`. |
@@ -224,15 +223,6 @@ For `RNA-ATAC`, the output is `predicted_atac.h5ad`. For `ATAC-RNA`, the output 
 to features in the predicted modality, `obs` contains test-cell metadata, and `var`
 contains output feature metadata.
 
-### 5. Evaluate the test-set prediction
-
-```bash
-python scripts/evaluate.py --task RNA-ATAC --config configs/cellline.yaml
-```
-
-The evaluation writes `evaluation_metrics.csv`, containing the task and partition
-identifiers, data dimensions, PCA summary, and ARI, NMI, AMI, and homogeneity metrics.
-
 To force CPU execution, append `--device cpu` to the two training commands and the
 translation command. Runtime and memory use depend on the selected task,
 hardware, and configuration values.
@@ -249,13 +239,12 @@ outputs/
     |-- stage1_history.csv
     |-- diffusion.pt
     |-- diffusion_history.csv
-    |-- predicted_atac.h5ad
-    `-- evaluation_metrics.csv
+    `-- predicted_atac.h5ad
 ```
 
 The `.pt` files are model checkpoints. The history files contain epoch-level training
-losses. The prediction `.h5ad` file contains the generated target-modality matrix, and
-`evaluation_metrics.csv` contains the quantitative evaluation result.
+losses. The prediction `.h5ad` file contains the generated target-modality matrix for
+the predefined test cells, together with their observation and feature metadata.
 
 ## Troubleshooting
 
