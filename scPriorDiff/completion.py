@@ -7,7 +7,7 @@ from torch import nn
 
 
 class PriorGuidedCompletion(nn.Module):
-    """Direction-specific cross-attention with a soft proximal prior."""
+    """Task-specific cross-attention with a soft proximal prior."""
 
     def __init__(
         self,

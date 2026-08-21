@@ -45,8 +45,8 @@ class ExperimentConfig:
     def section(self, name: str) -> dict[str, Any]:
         return self.values[name]
 
-    def run_dir(self, task: TaskSpec, fold: int) -> Path:
-        return self.output_dir / task.name / f"fold_{fold}"
+    def run_dir(self, task: TaskSpec) -> Path:
+        return self.output_dir / task.name
 
 
 def load_config(path: str | Path) -> ExperimentConfig:

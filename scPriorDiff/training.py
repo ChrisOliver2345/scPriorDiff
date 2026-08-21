@@ -140,8 +140,8 @@ def save_history(rows: list[dict], path: Path) -> None:
     pd.DataFrame(rows).to_csv(path, index=False)
 
 
-def save_checkpoint(path: Path, model: nn.Module, task: TaskSpec, fold: int) -> None:
-    torch.save({"state_dict": model.state_dict(), "task": task.name, "fold": fold}, path)
+def save_checkpoint(path: Path, model: nn.Module, task: TaskSpec) -> None:
+    torch.save({"state_dict": model.state_dict(), "task": task.name}, path)
 
 
 def load_checkpoint(path: Path, model: nn.Module, device: torch.device) -> None:

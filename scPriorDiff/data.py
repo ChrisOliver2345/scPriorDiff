@@ -100,9 +100,9 @@ def make_loader(
     )
 
 
-def load_split(data_dir: Path, fold: int) -> dict[str, np.ndarray]:
-    arrays = np.load(data_dir / "splits" / f"fold_{fold}.npz")
-    return {name: arrays[name].astype(np.int64) for name in ("train", "val", "test")}
+def load_partitions(data_dir: Path) -> dict[str, np.ndarray]:
+    arrays = np.load(data_dir / "partitions.npz")
+    return {name: arrays[name].astype(np.int64) for name in ("train", "test")}
 
 
 def load_manifest(data_dir: Path) -> dict:
