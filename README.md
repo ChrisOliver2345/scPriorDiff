@@ -114,7 +114,7 @@ in `requirements.txt`.
 
 ## Input file layout
 
-The default configuration expects the following file layout:
+The default configuration uses the four RNA and ATAC files shown below.
 
 ```text
 scPriorDiff/
@@ -123,11 +123,7 @@ scPriorDiff/
 |   |   |-- Paired_RNA_train.h5ad
 |   |   |-- Paired_RNA_test.h5ad
 |   |   |-- Paired_ATAC_train.h5ad
-|   |   |-- Paired_ATAC_test.h5ad
-|   |   |-- gact.csv
-|   |   `-- priors/
-|   |       |-- tf_edges.csv.gz
-|   |       `-- chromosome_edges.csv.gz
+|   |   `-- Paired_ATAC_test.h5ad
 |   `-- processed/          Created by scripts/prepare_data.py
 |-- configs/
 |   `-- cellline.yaml
