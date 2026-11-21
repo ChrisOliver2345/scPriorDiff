@@ -19,7 +19,6 @@ scPriorDiff/
 |   `-- processed/          Model-ready train/test data generated locally
 |-- outputs/                Checkpoints, training histories, and predictions
 |-- scPriorDiff/            Python source code
-|-- scripts/                Data preparation, training, translation, and utilities
 |-- requirements.txt        Complete list of direct Python dependencies
 `-- README.md               Installation and usage documentation
 ```
@@ -124,7 +123,7 @@ scPriorDiff/
 |   |   |-- Paired_RNA_test.h5ad
 |   |   |-- Paired_ATAC_train.h5ad
 |   |   `-- Paired_ATAC_test.h5ad
-|   `-- processed/          Created by scripts/prepare_data.py
+|   `-- processed/
 |-- configs/
 |   `-- cellline.yaml
 `-- README.md
